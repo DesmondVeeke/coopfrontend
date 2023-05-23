@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useRef, useEffect } from 'react';
+import Banner from "./Banner";
+import TrackList from "./TrackList";
 
+import './index.css';
+
+
+const fetchURL = 'http://localhost:8080/api/songs/'
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        fetchTracks();
+    }, []);
+
+    const fetchTracks = async () => {
+        try {
+            const response = await fetch(fetchURL);
+            const data = await response.json();
+            setTracks(data);
+        } catch (error) {
+            console.log('Error fetching songs:', error);
+        }
+    };
+
+    return (
+        <div>
+            <Banner />
+            <TrackList tracks={tracks} />
+        </div>
+    );
 }
+
+
 
 export default App;
