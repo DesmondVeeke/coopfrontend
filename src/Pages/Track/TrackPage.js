@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import TrackItem from '../../Components/Track/TrackItem';
 import { Link, useParams } from 'react-router-dom';
 import PluginList from '../../Components/Plugin/PluginList';
@@ -9,7 +9,7 @@ function TrackPage() {
     const [plugins, setPlugins] = useState([]);
     const fetchURL = 'http://localhost:8080/api/songs/';
 
-    const fetchTrack = async () => {
+    const fetchTrack = useCallback (async () => {
         try {
             const response = await fetch(`${fetchURL}${trackId}`);
             const data = await response.json();
@@ -18,9 +18,9 @@ function TrackPage() {
         } catch (error) {
             console.log('Error fetching track:', error);
         }
-    };
+    }, [trackId]);
 
-    const fetchPlugins = async () => {
+    const fetchPlugins = useCallback( async () => {
         try {
             const response = await fetch(`http://localhost:8080/api/plugins/forsong/${trackId}`);
             const data = await response.json();
@@ -28,7 +28,7 @@ function TrackPage() {
         } catch (error) {
             console.log('Error fetching plugins:', error);
         }
-    };
+    }, [trackId]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +37,7 @@ function TrackPage() {
         };
 
         fetchData();
-    }, [trackId]);
+    }, [trackId, fetchPlugins, fetchTrack]);
 
     const handleButtonClick = () => {
         // Button click handler logic...
