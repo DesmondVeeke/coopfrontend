@@ -1,18 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import TrackItem from "../../Components/Track/TrackItem"
-import {Link, useParams} from "react-router-dom";
-import PluginList from "../../Components/Plugin/PluginList";
+import React, { useEffect, useState } from 'react';
+import TrackItem from '../../Components/Track/TrackItem';
+import { Link, useParams } from 'react-router-dom';
+import PluginList from '../../Components/Plugin/PluginList';
 
 function TrackPage() {
     const { trackId } = useParams();
     const [track, setTrack] = useState(null);
     const [plugins, setPlugins] = useState([]);
     const fetchURL = 'http://localhost:8080/api/songs/';
-
-    useEffect(() => {
-        fetchTrack();
-        fetchPlugins();
-    }, [trackId]);
 
     const fetchTrack = async () => {
         try {
@@ -35,9 +30,18 @@ function TrackPage() {
         }
     };
 
-    const handleButtonClick = () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchTrack();
+            await fetchPlugins();
+        };
 
-    }
+        fetchData();
+    }, [trackId]);
+
+    const handleButtonClick = () => {
+        // Button click handler logic...
+    };
 
     return (
         <div className="page-container">
@@ -45,14 +49,13 @@ function TrackPage() {
                 <div className="track-item">
                     <h1>Track Details</h1>
                     {track ? <TrackItem track={track} /> : <p>Loading track...</p>}
-
                 </div>
-                </div>
+            </div>
             <div className="plugin-container">
                 <PluginList plugins={plugins} />
             </div>
             <p></p>
-            <Link to={`/`}>
+            <Link to="/">
                 <button onClick={handleButtonClick}>Back to index</button>
             </Link>
         </div>
