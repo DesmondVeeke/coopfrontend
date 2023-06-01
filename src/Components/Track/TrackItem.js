@@ -1,11 +1,7 @@
 import React from 'react';
 import StatusColor from './StatusColor';
-import {useParams} from "react-router-dom";
 
 function TrackItem({ track }) {
-
-    const params = useParams();
-
 
     return (
         <li>
