@@ -19,9 +19,59 @@ body,
 
 .banner-text {
     color: white;
+    margin-bottom: 10px;
 }
 
+.banner-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    margin-right: 10px;
+    background-color: #614869;
+}
+
+.nav-links li:last-child {
+    margin-right: 0;
+}
+
+.nav-links li a {
+    color: white;
+    background-color: #614869;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.nav-links li a:hover {
+    background-color: #492d5e;
+}
+
+.login-register p {
+    color: white;
+    margin: 0;
+    font-size: 25px;
+}
+
+.login-register p:first-child {
+    margin-bottom: 5px;
+}
+
+
+
+
 .container {
+    display: flex;
     margin-top: 20px;
 }
 
@@ -34,6 +84,33 @@ body,
     padding: 40px;
     marker: none;
 }
+
+.page-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.track-item {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eaeaea;
+}
+
+.plugin-container {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+}
+
+
+
+
 
 li {
     list-style-type: none;
@@ -60,4 +137,13 @@ strong {
     border-radius: 5px;
     background-color: #eaeaea;
     font-weight: bold;
+}
+
+.page-content {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.button-container {
+    text-align: center;
 }

@@ -1,37 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Banner from "./Banner";
-import TrackList from "./TrackList";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TrackIndexPage from './Pages/Track/TrackIndexPage';
+import Banner from './Components/Banner';
+import {TrackPage} from "./Pages/Track/TrackPage";
 
-import './index.css';
-
-
-const fetchURL = 'http://localhost:8080/api/songs/'
 function App() {
-
-    const [tracks, setTracks] = useState([]);
-
-    useEffect(() => {
-        fetchTracks();
-    }, []);
-
-    const fetchTracks = async () => {
-        try {
-            const response = await fetch(fetchURL);
-            const data = await response.json();
-            setTracks(data);
-        } catch (error) {
-            console.log('Error fetching songs:', error);
-        }
-    };
-
     return (
-        <div>
-            <Banner />
-            <TrackList tracks={tracks} />
-        </div>
+        <Router>
+            <div>
+                <Banner />
+                <Routes>
+
+                    <Route path="/" element={<TrackIndexPage />} />
+                    <Route path="/track/:trackId" element={<TrackPage />} />
+                </Routes>
+            </div>
+        </Router>
     );
 }
-
-
 
 export default App;
