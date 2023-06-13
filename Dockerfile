@@ -5,6 +5,7 @@ COPY package.json .
 COPY package-lock.json .
 RUN npm install
 COPY src .
+COPY public ./public
 RUN npm run build
 
 # Stage 2: Serve the built application
