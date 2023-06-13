@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TrackIndexList from '../../Components/Track/TrackIndexList';
 import jwtDecode from 'jwt-decode';
 
@@ -14,7 +14,30 @@ function TrackIndexPage() {
 
     useEffect(() => {
         fetchEnvironment();
-    }, []);
+    }, );
+
+    const fetchTracks = useCallback(async (environmentId) => {
+        try {
+            const response = await fetch(`${fetchBaseURL}/environment/${environmentId}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setTracks(data);
+            } else {
+                console.log('Error fetching tracks:', response.statusText);
+            }
+        } catch (error) {
+            console.log('Error fetching tracks:', error);
+        }
+    }, [token]);
 
     useEffect(() => {
         const socket = new WebSocket('ws://localhost:8080/ws');
@@ -34,7 +57,7 @@ function TrackIndexPage() {
         return () => {
             socket.close();
         };
-    }, [environment]); // Re-run the effect when the environment changes
+    }, [environment, fetchTracks]);
 
     const fetchEnvironment = async () => {
         try {
@@ -60,29 +83,6 @@ function TrackIndexPage() {
             }
         } catch (error) {
             console.log('Error fetching environments:', error);
-        }
-    };
-
-    const fetchTracks = async (environmentId) => {
-        try {
-            const response = await fetch(`${fetchBaseURL}/environment/${environmentId}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    Authorization: 'Bearer ' + token,
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setTracks(data);
-            } else {
-                console.log('Error fetching tracks:', response.statusText);
-            }
-        } catch (error) {
-            console.log('Error fetching tracks:', error);
         }
     };
 
