@@ -4,7 +4,7 @@ WORKDIR /react-app
 COPY package.json .
 COPY package-lock.json .
 RUN npm install
-COPY src .
+COPY src /.src
 COPY public ./public
 RUN npm run build
 
