@@ -14,8 +14,8 @@ function TrackIndexItem({ track }) {
             <h2>{trackName}</h2>
             <p><StatusColor status={status} /></p>
             <p><strong>Author:</strong> {author}</p>
-            <Link to={`/track/${id}`}>
-                <button onClick={handleButtonClick}>View Song</button>
+            <Link to={`/tracks/${id}`}>
+                <button onClick={handleButtonClick}>View Track</button>
             </Link>
         </li>
     );

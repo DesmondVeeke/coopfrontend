@@ -1,3 +1,4 @@
+// Import the necessary dependencies
 import React, { useEffect, useState, useCallback } from 'react';
 import TrackItem from '../../Components/Track/TrackItem';
 import { Link, useParams } from 'react-router-dom';
@@ -9,9 +10,17 @@ function TrackPage() {
     const [plugins, setPlugins] = useState([]);
     const fetchURL = 'http://localhost:8080/api/songs/';
 
-    const fetchTrack = useCallback (async () => {
+    const fetchTrack = useCallback(async () => {
         try {
-            const response = await fetch(`${fetchURL}${trackId}`);
+            const token = localStorage.getItem('token'); // Get the token from local storage
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+                },
+            };
+            const response = await fetch(`${fetchURL}${trackId}`, requestOptions);
             const data = await response.json();
             setTrack(data);
             console.log(data);
@@ -20,10 +29,19 @@ function TrackPage() {
         }
     }, [trackId]);
 
-    const fetchPlugins = useCallback( async () => {
+    const fetchPlugins = useCallback(async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/plugins/forsong/${trackId}`);
+            const token = localStorage.getItem('token'); // Get the token from local storage
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, // Include the token in the Authorization header
+                },
+            };
+            const response = await fetch(`http://localhost:8080/api/plugins/forsong/${trackId}`, requestOptions);
             const data = await response.json();
+            console.log(data);
             setPlugins(data);
         } catch (error) {
             console.log('Error fetching plugins:', error);

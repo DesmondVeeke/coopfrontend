@@ -68,7 +68,14 @@ body,
 }
 
 
-
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 25vh;
+    text-align: center;
+}
 
 .container {
     display: flex;

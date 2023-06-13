@@ -6,7 +6,6 @@ function PluginItem({ plugin }) {
             <h2>{plugin.name}</h2>
             <p>Version: {plugin.version}</p>
             <p>Available: {plugin.available ? 'Yes' : 'No'}</p>
-            {/* Ignore the 'song' property */}
         </div>
     );
 }
